@@ -1,18 +1,31 @@
-version: '3.8'
+version: '3'
 services:
   backend:
     build: ./doctor-office-backend
     ports:
-      - "3000:3000"
+      - "3000:3000" # Map backend to localhost:3000
     depends_on:
       - mongo
+    networks:
+      - midterm
+
+  
   frontend:
     build: ./doctor-office-frontend
     ports:
-      - "3001:3001"
+      - "3001:3001" # Map frontend to localhost:3001
     depends_on:
       - backend
+    networks:
+      - midterm
+
   mongo:
-    image: mongo:4.0
+    image: mongo
     ports:
       - "27017:27017"
+    networks:
+      - midterm
+
+networks:
+  midterm:
+    driver: bridge

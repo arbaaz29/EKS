@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 
 
@@ -7,7 +8,7 @@ function App() {
 
 
   useEffect(() => {
-    fetch('/api/appointments')
+    fetch('/backend:3000/appointments')
       .then(res => res.json())
       .then(data => setAppointments(data));
   }, []);
@@ -15,7 +16,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('/api/appointments', {
+    fetch('/backend:3000/appointments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
@@ -43,6 +44,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
