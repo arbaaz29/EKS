@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const cors = require('cors')
 
 const app = express();
 app.use(express.json());
@@ -18,6 +18,7 @@ const AppointmentSchema = new mongoose.Schema({
 
 const Appointment = mongoose.model('Appointment', AppointmentSchema);
 
+app.use(cors())
 
 app.get('/appointments', async (req, res) => {
   const appointments = await Appointment.find();
