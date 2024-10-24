@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: your-dockerhub-username/doctor-office-frontend
+        image: arbaazij/frontend
         ports:
         - containerPort: 3001
 ---
