@@ -1,7 +1,8 @@
 version: '3'
 services:
   backend:
-    build: ./doctor-office-backend
+    image: arbaazij/backend
+    #build: ./doctor-office-backend
     ports:
       - "3000:3000" # Map backend to localhost:3000
     depends_on:
@@ -11,7 +12,8 @@ services:
 
   
   frontend:
-    build: ./doctor-office-frontend
+    image: arbaazij/frontend
+    #build: ./doctor-office-frontend
     ports:
       - "3001:3001" # Map frontend to localhost:3001
     depends_on:
