@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: backend
-        image: ./doctor-office-backend
+        image: arbaazij/backend_t
         ports:
         - containerPort: 3000
-    envFrom:
-      - secretRef:
-         name: my-env-secrets  # Load all environment variables from the Secret
+        envFrom:
+          - secretRef:
+               name: my-env-secrets  # Load all environment variables from the Secret

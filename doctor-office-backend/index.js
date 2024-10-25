@@ -23,7 +23,8 @@ const AppointmentSchema = new mongoose.Schema({
 const Appointment = mongoose.model('Appointment', AppointmentSchema);
 
 // Enable CORS
-app.use(cors({origin: '*'}));
+app.use(cors({origin: 'http://frontend-service:32337',
+methods: ['GET', 'POST'],}));
 
 // API endpoints
 app.get('/appointments', async (req, res) => {

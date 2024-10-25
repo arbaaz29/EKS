@@ -15,9 +15,9 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: arbaazij/frontend_kube  # Use the correct image for your frontend
+        image: arbaazij/frontend_t  # Use the correct image for your frontend
         ports:
         - containerPort: 3001
         envFrom:
-            - secretRef:
-                name: my-env-secrets  # Load all environment variables from the Secret
+        - secretRef:
+            name: my-env-secrets  # Load all environment variables from the Secret
