@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -14,19 +15,9 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: arbaazij/frontend
+        image: arbaazij/frontend_kube  # Use the correct image for your frontend
         ports:
         - containerPort: 3001
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-service
-spec:
-  selector:
-    app: frontend
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3001
-  type: LoadBalancer
+        envFrom:
+            - secretRef:
+                name: my-env-secrets  # Load all environment variables from the Secret

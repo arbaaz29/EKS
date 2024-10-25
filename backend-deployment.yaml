@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: default
 spec:
   replicas: 2
   selector:
@@ -14,18 +15,9 @@ spec:
     spec:
       containers:
       - name: backend
-        image: arbaazij/backend
+        image: ./doctor-office-backend
         ports:
         - containerPort: 3000
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-service
-spec:
-  selector:
-    app: backend
-  ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+    envFrom:
+      - secretRef:
+         name: my-env-secrets  # Load all environment variables from the Secret

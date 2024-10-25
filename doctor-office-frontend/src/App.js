@@ -1,29 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
-
 
 function App() {
   const [appointments, setAppointments] = useState([]);
   const [form, setForm] = useState({ patientName: '', doctorName: '', date: '' });
 
-
   useEffect(() => {
-    fetch('http://localhost:3000/appointments')
+    fetch(`${process.env.REACT_APP_API_URL}/appointments`) // Use REACT_APP_API_URL
       .then(res => res.json())
       .then(data => setAppointments(data));
   }, []);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/appointments', {
+    fetch(`${process.env.REACT_APP_API_URL}/appointments`, { // Use REACT_APP_API_URL
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
-    }).then(res => res.json())
-      .then(newAppointment => setAppointments([...appointments, newAppointment]));
+    })
+    .then(res => res.json())
+    .then(newAppointment => setAppointments([...appointments, newAppointment]));
   };
-
 
   return (
     <div>
@@ -34,7 +30,6 @@ function App() {
         <input type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
         <button type="submit">Book Appointment</button>
       </form>
-
 
       <ul>
         {appointments.map((appt) => (

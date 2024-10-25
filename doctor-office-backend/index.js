@@ -1,30 +1,35 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
 
+// Use the MONGO_URI environment variable
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/appointments';
 
-mongoose.connect('mongodb://mongo:27017/appointments', { useNewUrlParser: true, useUnifiedTopology: true });
+// Connect to MongoDB
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-
+// Define the schema and model for appointments
 const AppointmentSchema = new mongoose.Schema({
   patientName: String,
   doctorName: String,
   date: Date,
 });
 
-
 const Appointment = mongoose.model('Appointment', AppointmentSchema);
 
-app.use(cors())
+// Enable CORS
+app.use(cors({origin: '*'}));
 
+// API endpoints
 app.get('/appointments', async (req, res) => {
   const appointments = await Appointment.find();
   res.json(appointments);
 });
-
 
 app.post('/appointments', async (req, res) => {
   const appointment = new Appointment(req.body);
@@ -32,7 +37,8 @@ app.post('/appointments', async (req, res) => {
   res.json(appointment);
 });
 
-
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
+// Start the server
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
